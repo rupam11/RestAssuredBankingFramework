@@ -13,7 +13,7 @@ import payloads.LoginPayload;
 @Feature("Login API")
 public class LoginTests extends BaseTest {
 
-    @Story("Valid Login")
+    @Story("!===Valid Login===!")
     @Severity(SeverityLevel.CRITICAL)
     @Test(description = "Verify user can login with valid credentials", dataProvider = "loginData", dataProviderClass = TestDataProvider.class)
     public void testSuccessfulLogin() {
