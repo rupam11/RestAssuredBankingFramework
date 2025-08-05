@@ -1,0 +1,106 @@
+ FOLDER & FILE STRUCTURE EXPLANATION
+✅ 1. src/test/java — All your test code lives here.
+🔹 base/BaseTest.java
+Parent class for all tests.
+
+Contains setup/teardown code (e.g., loading config, setting headers, initializing ExtentReports).
+
+🔹 config/ConfigManager.java
+Reads values from config.properties file (like base URI, login URL).
+
+Helps keep test data/configuration outside code.
+
+🔹 data/DataProvider.java
+Supplies data to tests using TestNG’s @DataProvider.
+
+Helps with data-driven testing.
+
+🔹 mocking/
+WireMockServerSetup.java: Initializes mock server (WireMock).
+
+MockedLoginTests.java: Runs tests against mocked responses (useful when real API is not available).
+
+🔹 payload/LoginPayload.java
+Builds JSON body for login POST request.
+
+Contains method like getLoginBody(String user, String pass).
+
+🔹 reports/
+ExtentManager.java: Sets up the ExtentReports HTML report.
+
+ExtentTestManager.java: Creates test logs inside the report.
+
+🔹 tests/
+LoginTests.java: Contains real login test cases.
+
+AccountTests.java: Sample test class for future banking features.
+
+🔹 utils/
+TokenUtil.java: Fetches and stores token from login API.
+
+ValidatorUtil.java: Validates status codes, JSON responses, etc.
+
+✅ 2. src/test/resources — Stores static resources like test data and config.
+🔹 testData/login.json
+Stores user credentials or login payloads.
+
+You can make it dynamic with data provider or JSON reader later.
+
+🔹 config.properties
+properties
+Copy
+Edit
+baseUrl=https://bankingapi.example.com
+loginEndpoint=/api/v1/login
+accountEndpoint=/api/v1/account
+username=testuser
+password=pass123
+===========================================================================================
+Why mocking folder/ files are needed:
+ What Is the mocking/ Folder For?
+The mocking/ folder contains mock server setup and test classes that simulate API responses without calling the real backend.
+
+This is useful when:
+
+✅ 1. Backend API is not ready yet
+You want to start automation testing before developers finish the API. Mocking helps you create expected responses ahead of time.
+
+Example: You're testing /api/v1/login, but the backend team hasn't deployed it yet. So, you mock it to simulate a success or failure response.
+
+✅ 2. You want consistent, controlled test results
+Live servers may have changing data, rate limits, or downtime. Mocking ensures:
+
+100% predictable responses
+
+No flakiness due to server issues
+
+Easier regression tests
+
+✅ 3. Negative or rare scenario testing
+You can simulate:
+
+401 Unauthorized
+
+500 Internal Server Error
+
+Slow responses
+
+Invalid tokens
+
+Even if these don't happen in the real server often.
+
+✅ 4. Isolated testing (unit-level)
+Mocking is often used in unit testing when you want to test your framework logic (e.g., token storage,
+ retry logic) without real dependencies.
+ ==============================================
+ @Epic("...") — For grouping at project level
+
+@Feature("...") — For functionality/module level
+
+@Story("...") — For user story or use case
+
+@Severity(SeverityLevel.CRITICAL) — For test priority
+
+@Description("...") (optional) — Adds more context
+
+@Step (used within methods) — Breaks down steps in the report

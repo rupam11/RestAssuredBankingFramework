@@ -1,0 +1,7 @@
+# Ignore Eclipse & Maven-specific files
+.classpath
+.project
+.settings/
+target/
+bin/
+*.log
